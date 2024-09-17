@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "433578795996",
+    "project_id": "reset-f2675",
+    "storage_bucket": "reset-f2675.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433578795996:android:1cbb1414516d1343376519",
+        "android_client_info": {
+          "package_name": "com.example.reset"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmGz9F-stiBg7c4wtI2HoqUY-A2-j9eG4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
