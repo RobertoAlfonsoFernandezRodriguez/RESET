@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CRUD">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CRUD" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btdatos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Datos"
+                android:onClick="datos"/>
+
+            <Button
+                android:id="@+id/btwhatsapp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="WhatsApp"
+                android:onClick="whatsapp"/>
+
+            <Button
+                android:id="@+id/btadmin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Admin"
+                android:onClick="admin"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvnumero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Numero" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ToggleButton
+                android:id="@+id/toggleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ToggleButton"
+                android:textOn="EDITAR"
+                android:textOff="NO EDITAR"/>
+
+            <EditText
+                android:id="@+id/etnumero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="text"
+                android:hint="Nuevo numero" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvmensaje"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="mensaje" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ToggleButton
+                android:id="@+id/toggleButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ToggleButton"
+                android:textOn="EDITAR"
+                android:textOff="NO EDITAR"/>
+
+            <EditText
+                android:id="@+id/etmensaje"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="text"
+                android:hint="Nuevo mensaje" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvcontraseña"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Contraseña" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ToggleButton
+                android:id="@+id/toggleButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="ToggleButton"
+                android:textOn="EDITAR"
+                android:textOff="NO EDITAR"/>
+
+            <EditText
+                android:id="@+id/etcontraseña"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="text"
+                android:hint="Nueva contraseña" />
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/buscarcategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="siguiente"
+            android:text="Buscar en Categoria" />
+
+        <Spinner
+            android:id="@+id/spinner2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btneditar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Editar"
+                android:onClick="edit" />
+
+            <Button
+                android:id="@+id/btneliminar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Eliminar"
+                android:onClick="delete" />
+
+            <Button
+                android:id="@+id/btnAgregar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Agregar"
+                android:onClick="add" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/nuevovalor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Nuevo valor"
+            android:inputType="text" />
+
+        <Button
+            android:id="@+id/btguardar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Guardar"
+            android:onClick="guardar" />
+
+        <Button
+            android:id="@+id/btregresar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Regresar"
+            android:onClick="regresar"/>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

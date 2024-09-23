@@ -43,17 +43,17 @@ public class MainActivity extends AppCompatActivity {
     public static final String AUTHOR_KEY = "author";
     public static final String QUOTE_KEY = "quote";
     FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageReference1 = storage.getReferenceFromUrl("gs://reset-f2675.appspot.com").child("tpv.png");
+    StorageReference storageReference1 = storage.getReferenceFromUrl("gs://reset-f2675.appspot.com/RESET/CATEGORIAS").child("TPV.png");
     FirebaseStorage storage2 = FirebaseStorage.getInstance();
-    StorageReference storageReference2 = storage2.getReferenceFromUrl("gs://reset-f2675.appspot.com").child("cctv.png");
+    StorageReference storageReference2 = storage2.getReferenceFromUrl("gs://reset-f2675.appspot.com/RESET/CATEGORIAS").child("CCTV.png");
     FirebaseStorage storage3 = FirebaseStorage.getInstance();
-    StorageReference storageReference3 = storage3.getReferenceFromUrl("gs://reset-f2675.appspot.com").child("alarmas.png");
+    StorageReference storageReference3 = storage3.getReferenceFromUrl("gs://reset-f2675.appspot.com/RESET/CATEGORIAS").child("CONSULTORÍA.png");
     FirebaseStorage storage4 = FirebaseStorage.getInstance();
-    StorageReference storageReference4 = storage4.getReferenceFromUrl("gs://reset-f2675.appspot.com").child("servicios.png");
+    StorageReference storageReference4 = storage4.getReferenceFromUrl("gs://reset-f2675.appspot.com/RESET/CATEGORIAS").child("SERVICIOS.png");
     FirebaseStorage storage5 = FirebaseStorage.getInstance();
-    StorageReference storageReference5 = storage5.getReferenceFromUrl("gs://reset-f2675.appspot.com").child("garantias.png");
+    StorageReference storageReference5 = storage5.getReferenceFromUrl("gs://reset-f2675.appspot.com/RESET/CATEGORIAS").child("GARANTIAS.png");
     FirebaseStorage storage6 = FirebaseStorage.getInstance();
-    StorageReference storageReference6 = storage6.getReferenceFromUrl("gs://reset-f2675.appspot.com").child("redes.png");
+    StorageReference storageReference6 = storage6.getReferenceFromUrl("gs://reset-f2675.appspot.com/RESET/CATEGORIAS").child("REDES.png");
     private DocumentReference mDocRef = FirebaseFirestore.getInstance().document("RESET/CATEGORIAS");
     TextView mQuoteTextView;
     TextView t1;
@@ -79,59 +79,61 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        ImageView imageView = findViewById(R.id.imageView);
+
+        // Configura el evento onClick
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Acción a realizar cuando se hace clic en la imagen
+                Intent intent = new Intent(MainActivity.this, Login.class);
+                startActivity(intent);
+            }
+        });
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        //agregarBotones();
+
         //mQuoteTextView = findViewById(R.id.textView);
         t1 = findViewById(R.id.tv1);
         t2 = findViewById(R.id.tv2);
         t3 = findViewById(R.id.tv3);
         t4 = findViewById(R.id.tv4);
-        t5 = findViewById(R.id.tv5);
-        t6 = findViewById(R.id.tv6);
-        t7 = findViewById(R.id.tv7);
-        t8 = findViewById(R.id.tv8);
-        t9 = findViewById(R.id.tv9);
-        t10 = findViewById(R.id.tv10);
+
 
         ImageButton boton1 = findViewById(R.id.ibtn1);
         ImageButton boton2 = findViewById(R.id.ibtn2);
         ImageButton boton3 = findViewById(R.id.ibtn3);
         ImageButton boton4 = findViewById(R.id.ibtn4);
-        ImageButton boton5 = findViewById(R.id.ibtn5);
-        ImageButton boton6 = findViewById(R.id.ibtn6);
-        ImageButton boton7 = findViewById(R.id.ibtn7);
-        ImageButton boton8 = findViewById(R.id.ibtn8);
-        ImageButton boton9 = findViewById(R.id.ibtn9);
 
         image1= findViewById(R.id.ibtn1);
         image2= findViewById(R.id.ibtn2);
         image3= findViewById(R.id.ibtn3);
         image4= findViewById(R.id.ibtn4);
-        image5= findViewById(R.id.ibtn5);
-        image6= findViewById(R.id.ibtn6);
 
      FetchData();
-     imagen(image1,storageReference1,"image");
-     imagen(image2,storageReference2,"image");
-     imagen(image3,storageReference3,"image");
-     imagen(image4,storageReference4,"image");
-     imagen(image5,storageReference5,"image");
-     imagen(image6,storageReference6,"image");
+     imagen(image1,storageReference1);
+     imagen(image2,storageReference2);
+     imagen(image3,storageReference3);
+     imagen(image4,storageReference4);
 
+
+
+        //agregarBotones();
     }
     public void agregarBotones(){
-        ScrollView scrollView = findViewById(R.id.scrollView);
-        LinearLayout l1 = new LinearLayout(this);
-        l1.setOrientation(LinearLayout.HORIZONTAL);
-        scrollView.addView(l1);
+        // Acceder al LinearLayout existente en el archivo XML
+        //LinearLayout miLayout = findViewById(R.id.miLinearLayout);
 
         // Crear un botón programáticamente
         Button boton = new Button(this);
         boton.setText("Nuevo Botón");
 
         // Definir el tamaño del botón
-        boton.setWidth(180);
-        boton.setHeight(180);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        boton.setLayoutParams(params);
 
         // Definir el comportamiento del botón al hacer clic
         boton.setOnClickListener(new View.OnClickListener() {
@@ -141,9 +143,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Agregar el botón al scrollView
-        l1.addView(boton);
+        // Agregar el botón al LinearLayout
+        //miLayout.addView(boton);
     }
+
 
     public void b1 (View view){
         Intent intent = new Intent(MainActivity.this, Productos.class);
@@ -167,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, Productos.class);
 
         // Pasar datos utilizando putExtra
-        intent.putExtra("CATEGORIA", "ALARMAS");
+        intent.putExtra("CATEGORIA", "CONSULTORIA");
 
         // Iniciar la segunda actividad
         startActivity(intent);
@@ -206,19 +209,19 @@ public class MainActivity extends AppCompatActivity {
     public void b9 (View view){
     }
     public void b10 (View view){
-    UpdateData();
-    CountData();
+    //UpdateData();
+    //CountData();
     }
 
-    public void imagen (ImageView img, StorageReference st,String image){
+    public void imagen (ImageView img, StorageReference st){
 
         try{
-            final File file=File.createTempFile(image,"jpg");
+            final File file=File.createTempFile("image","png");
             st.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-                    Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 200, 250, false);
+                    Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 425, 425, false);
                     img.setImageBitmap(scaledBitmap);
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -248,13 +251,11 @@ public class MainActivity extends AppCompatActivity {
                         "t" + String.valueOf(i) = setText(s);
                     }*/
                     //InspiringQuote myQuote = documentSnapshot.toObject(InspiringQuote.class);
-                    t1.setText(documentSnapshot.getString("1"));
-                    t2.setText(documentSnapshot.getString("2"));
+                    //t1.setText(documentSnapshot.getString("1"));
+                    //t2.setText(documentSnapshot.getString("2"));
                     t3.setText(documentSnapshot.getString("3"));
                     t4.setText(documentSnapshot.getString("4"));
-                    t5.setText(documentSnapshot.getString("5"));
-                    t6.setText(documentSnapshot.getString("6"));
-                    t7.setText(documentSnapshot.getString("7"));
+
 
 
                     //mQuoteTextView.setText(s1 + " - "+ s2 + " - "+ s3 );
