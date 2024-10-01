@@ -40,12 +40,7 @@ public class Login extends AppCompatActivity {
                 if(documentSnapshot.exists())
                 {
 
-
-
                     contraseña = documentSnapshot.getString("3");
-
-
-
 
 
                 }

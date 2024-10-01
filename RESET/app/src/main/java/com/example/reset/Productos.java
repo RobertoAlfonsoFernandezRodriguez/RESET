@@ -1,13 +1,18 @@
 package com.example.reset;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,34 +30,44 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import org.checkerframework.common.subtyping.qual.Bottom;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
+import java.net.URL;
 
 public class Productos extends AppCompatActivity {
     String CATEGORIA = "";
     int cantidadCampos;
+    int cantidad=1;
+    boolean par;
     ArrayList<Object> elementList = new ArrayList<>();
+    ArrayList<ImageButton> imageButtonList = new ArrayList<>();
+    int IDBoton=0;
     private ArrayList<TextView> textViewList = new ArrayList<>();
 
-    String menu,s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15,s16,s17,s18,s19,s20,s21,s22,s23,s24,s25,s26,s27,s28,s29,s30;
-    ImageButton ib,ib2,ib3,ib4,ib5,ib6,ib7,ib8,ib9,ib10,ib11,ib12,ib13,ib14,ib15,ib16,ib17,ib18,ib19,ib20,ib21,ib22,ib23,ib24,ib25,ib26,ib27,ib28,ib29,ib30;
 
     TextView tvmenu;
-    TextView t1;
-    TextView t2;
-    TextView t3;
-    TextView t4;
-    TextView t5;
-    TextView t6;
-    TextView t7;
-    TextView t8;
-    TextView t9;
-    TextView t10;
-    TextView t11,t12,t13,t14,t15,t16,t17,t18,t19,t20,t21,t22,t23,t24,t25,t26,t27,t28,t29,t30;
+
     String Numero, mensaje;
 
+    //vista individual
+    ImageView imagenProducto;
+    ImageButton  btnup, btndowm,butonwhatsapp;
+    TextView preciototalproducto, cantidadproducto,nombreproducto,descripcionproducto;
+    Boolean vistaindividual;
+    LinearLayout llvistaindividual;
+    //SCROLL
+    ScrollView scroll;
+    boolean whatsappenviado = false;
+    DocumentReference mDocRefws = FirebaseFirestore.getInstance().document("RESET/PRIVADO");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,255 +80,322 @@ public class Productos extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        //encontrar id vista indivual
+        imagenProducto = findViewById(R.id.imagenproducto);
+        nombreproducto = findViewById(R.id.nombreproducto);
+        descripcionproducto = findViewById(R.id.descripcionproducto);
+        preciototalproducto = findViewById(R.id.preciotototalproducto);
+        cantidadproducto = findViewById(R.id.cantidadproducto);
+        butonwhatsapp = findViewById(R.id.botonwhatsapp);
+        btnup = findViewById(R.id.btnup);
+        btndowm = findViewById(R.id.btndowm);
+        llvistaindividual = findViewById(R.id.linearLayoutvistaindividual);
+        llvistaindividual.setVisibility(View.GONE);
+
+        scroll = findViewById(R.id.scroll);
+        scroll.setVisibility(View.VISIBLE);
+
+        // lo otro
         tvmenu = findViewById(R.id.Menu);
-        t1 = findViewById(R.id.tv1);
-        t2 = findViewById(R.id.tv2);
-        t3 = findViewById(R.id.tv3);
-        t4 = findViewById(R.id.tv4);
-        t5 = findViewById(R.id.tv5);
-        t6 = findViewById(R.id.tv6);
-        t7 = findViewById(R.id.tv7);
-        t8 = findViewById(R.id.tv8);
-        t9 = findViewById(R.id.tv9);
-        t10 = findViewById(R.id.tv10);
-        t11 = findViewById(R.id.tv11);
-        t12 = findViewById(R.id.tv12);
-        t13 = findViewById(R.id.tv13);
-        t14 = findViewById(R.id.tv14);
-        t15 = findViewById(R.id.tv15);
-        t16 = findViewById(R.id.tv16);
-        t17 = findViewById(R.id.tv17);
-        t18 = findViewById(R.id.tv18);
-        t19 = findViewById(R.id.tv19);
-        t20 = findViewById(R.id.tv20);
-        t21 = findViewById(R.id.tv21);
-        t22 = findViewById(R.id.tv22);
-        t23 = findViewById(R.id.tv23);
-        t24 = findViewById(R.id.tv24);
-        t25 = findViewById(R.id.tv25);
-        t26 = findViewById(R.id.tv26);
-        t27 = findViewById(R.id.tv27);
-        t28 = findViewById(R.id.tv28);
-        t29 = findViewById(R.id.tv29);
-        t30 = findViewById(R.id.tv30);
-
-        ImageButton ib1 = findViewById(R.id.ibtn1);
-        ImageButton ib2 = findViewById(R.id.ibtn2);
-        ImageButton ib3 = findViewById(R.id.ibtn3);
-        ImageButton ib4 = findViewById(R.id.ibtn4);
-        ImageButton ib5 = findViewById(R.id.ibtn5);
-        ImageButton ib6 = findViewById(R.id.ibtn6);
-        ImageButton ib7 = findViewById(R.id.ibtn7);
-        ImageButton ib8 = findViewById(R.id.ibtn8);
-        ImageButton ib9 = findViewById(R.id.ibtn9);
-        ImageButton ib10 = findViewById(R.id.itbn10);
-        ImageButton ib11 = findViewById(R.id.ibtn11);
-        ImageButton ib12 = findViewById(R.id.ibtn12);
-        ImageButton ib13 = findViewById(R.id.ibtn13);
-        ImageButton ib14 = findViewById(R.id.ibtn14);
-        ImageButton ib15 = findViewById(R.id.ibtn15);
-        ImageButton ib16 = findViewById(R.id.ibtn16);
-        ImageButton ib17 = findViewById(R.id.ibtn17);
-        ImageButton ib18 = findViewById(R.id.ibtn18);
-        ImageButton ib19 = findViewById(R.id.ibtn19);
-        ImageButton ib20 = findViewById(R.id.itbn20);
-        ImageButton ib21 = findViewById(R.id.ibtn21);
-        ImageButton ib22 = findViewById(R.id.ibtn22);
-        ImageButton ib23 = findViewById(R.id.ibtn23);
-        ImageButton ib24 = findViewById(R.id.ibtn24);
-        ImageButton ib25 = findViewById(R.id.ibtn25);
-        ImageButton ib26 = findViewById(R.id.ibtn26);
-        ImageButton ib27 = findViewById(R.id.ibtn27);
-        ImageButton ib28 = findViewById(R.id.ibtn28);
-        ImageButton ib29 = findViewById(R.id.ibtn29);
-        ImageButton ib30 = findViewById(R.id.itbn30);
-
-
-
-
+        Intent intent = getIntent();
+        cantidadCampos = intent.getIntExtra("CANTIDAD",0); // El 0 es un valor por defecto en caso de que no se encuentre el extra
+        CATEGORIA = intent.getStringExtra("CATEGORIA");
+        imageButtonList = new ArrayList<>();
+        tvmenu.setText(CATEGORIA);
 
         FetchData();
-        CountData();
 
-        //AgregarBotones();
-        LinearLayout linearLayoutParent = findViewById(R.id.parentLinearLayout);
-        //
+        // Obtener el contenedor (LinearLayout) dentro del ScrollView
+        LinearLayout containerLayout = findViewById(R.id.containerLayout);
+
+        if (cantidadCampos > 0){
+
+            if (cantidadCampos % 2 == 0) {
+                for (int i = 0; i < ((cantidadCampos/2)); i++) {
+
+                    LinearLayout horizontalLayout = createButtonLayout(); // Crear el layout
+                    containerLayout.addView(horizontalLayout); // Añadir al contenedor
+                    par=true;
+                }
+
+            } else {
+                for (int i = 0; i < ((cantidadCampos/2)+1); i++) {
+                    LinearLayout horizontalLayout = createButtonLayout(); // Crear el layout
+                    containerLayout.addView(horizontalLayout); // Añadir al contenedor
+                    par=false;
+                }
 
 
+            }
 
-        //
+            if (par== false){
+                imageButtonList.get(imageButtonList.size()-1).setVisibility(View.INVISIBLE);
+            }
 
-
-
-        // Crear 10 de estas estructuras
-        /*for (int i = 1; i <= 4; i++) {
-            createComplexLayout(linearLayoutParent, i);
         }
-        if (!textViewList.isEmpty()) {
-            // Cambiar el texto del primer TextView de la lista
-            textViewList.get(0).setText("Texto");
-        }*/
+        DocumentReference mDocRefUpdate = FirebaseFirestore.getInstance().document("RESET/"+CATEGORIA);
+
+        // Intentas obtener los datos de Firestore de manera asíncrona
+        mDocRefUpdate.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                // Aquí ya tienes el documento obtenido correctamente
+                if (documentSnapshot.exists()) {
+                    // Obtén los datos del documento, por ejemplo:
+                    String categoria = documentSnapshot.getString("1");
+                    //Toast.makeText(MainActivity.this, "El valor de countdata es"+categoria, Toast.LENGTH_SHORT).show();
+                    //CountData();
+                    //Toast.makeText(MainActivity.this, "El valor de countdata es" + String.valueOf(cantidadCampos), Toast.LENGTH_SHORT).show();
+                    if (cantidadCampos > 0){
+                        FetchData();
+                        //Toast.makeText(Productos.this, "lista correcta2"+elementList.toString(), Toast.LENGTH_LONG).show();
+                        //imagen( imageButtonList.get(1),"EstudioMercado");
+
+                        for (int i = 0; i < cantidadCampos; i++) {
+                            imagen( imageButtonList.get(i),elementList.get(i).toString());
+                        }
+                        //imagen( imageButtonList.get(1),storageReference1);
+                        // la altura de imageButton1
+                    }
+
+
+                    // Ahora puedes usar el dato "categoria"
+                    System.out.println("Categoría obtenida: " + categoria);
+
+                    // O llamar a una función que maneje los datos
+                    // ...
+
+
+                } else {
+                    // El documento no existe
+                    System.out.println("No se encontró el documento");
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // Manejar el error si ocurre un fallo en la lectura
+                System.out.println("Error al obtener documento: " + e.getMessage());
+            }
+        });
 
 
 
 
-        //NoMostrar();
+
     }
-    public void NoMostrar(){
-        Intent intent = getIntent();
-        CATEGORIA = intent.getStringExtra("CATEGORIA");
 
-        if (true){
-            Toast.makeText(Productos.this, "no funciona boton"+CATEGORIA, Toast.LENGTH_SHORT).show();
-            t6.setVisibility(View.GONE);
-            t7.setVisibility(View.GONE);
-            t8.setVisibility(View.GONE);
-            t9.setVisibility(View.GONE);
-            t10.setVisibility(View.GONE);
-            t11.setVisibility(View.GONE);
-            t12.setVisibility(View.GONE);
-            t13.setVisibility(View.GONE);
-            t14.setVisibility(View.GONE);
-            t15.setVisibility(View.GONE);
-            t16.setVisibility(View.GONE);
-            t17.setVisibility(View.GONE);
-            t18.setVisibility(View.GONE);
-            t19.setVisibility(View.GONE);
-            t20.setVisibility(View.GONE);
-            t21.setVisibility(View.GONE);
-            t22.setVisibility(View.GONE);
-            t23.setVisibility(View.GONE);
-            t24.setVisibility(View.GONE);
-            t25.setVisibility(View.GONE);
-            t26.setVisibility(View.GONE);
-            t27.setVisibility(View.GONE);
-            t28.setVisibility(View.GONE);
-            t29.setVisibility(View.GONE);
-            t30.setVisibility(View.GONE);
+    private LinearLayout createButtonLayoutno() {
+        // Crear un nuevo LinearLayout programáticamente
+        LinearLayout horizontalLayout = new LinearLayout(this);
+        horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+        horizontalLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
-            ib7.setVisibility(View.GONE);
-            ib8.setVisibility(View.GONE);
-            ib9.setVisibility(View.GONE);
-            ib10.setVisibility(View.GONE);
-            ib11.setVisibility(View.GONE);
-            ib12.setVisibility(View.GONE);
-            ib13.setVisibility(View.GONE);
-            ib14.setVisibility(View.GONE);
-            ib15.setVisibility(View.GONE);
-            ib16.setVisibility(View.GONE);
-            ib17.setVisibility(View.GONE);
-            ib18.setVisibility(View.GONE);
-            ib19.setVisibility(View.GONE);
-            ib20.setVisibility(View.GONE);
-            ib21.setVisibility(View.GONE);
-            ib22.setVisibility(View.GONE);
-            ib23.setVisibility(View.GONE);
-            ib24.setVisibility(View.GONE);
-            ib25.setVisibility(View.GONE);
-            ib26.setVisibility(View.GONE);
-            ib27.setVisibility(View.GONE);
-            ib28.setVisibility(View.GONE);
-            ib29.setVisibility(View.GONE);
-            ib30.setVisibility(View.GONE);
+        // Parámetros de diseño comunes para los ImageButton
+        LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(0, dpToPx(180));
+        buttonParams.weight = 1;
+        buttonParams.setMargins(20, 20, 20, 20); // Margen de 20dp alrededor
+
+        // Guardar la posición de IDBoton para los ImageButtons de este layout
+        final int currentIDBoton = IDBoton; // Almacenar el valor actual de IDBoton
+        IDBoton += 2; // Incrementar el IDBoton para el próximo set de botones
+
+        // Crear el primer ImageButton
+        ImageButton imageButton1 = new ImageButton(this);
+        imageButton1.setLayoutParams(buttonParams);
+        imageButton1.setBackgroundResource(R.drawable.boton); // Establecer el fondo
+        imageButton1.setImageResource(R.drawable.ic_launcher_foreground); // Imagen del botón
+        imageButton1.setScaleType(ImageButton.ScaleType.CENTER_INSIDE); // Escalado de la imagen
+
+        // Generar ID único para el botón
+        imageButton1.setId(View.generateViewId());
+
+        // Añadir el botón a la lista
+        imageButtonList.add(imageButton1);
+
+        // Listener para el primer botón
+        imageButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Usar currentIDBoton en lugar de IDBoton
+                //Toast.makeText(Productos.this, "ID " + currentIDBoton + ": " + elementList.get(currentIDBoton).toString(), Toast.LENGTH_SHORT).show();
+
+                //whatsapp(elementList.get(currentIDBoton).toString());
+                vistaindividual=true;
+                vistaindividual(elementList.get(currentIDBoton).toString());
+                imagen(imageButtonList.get(currentIDBoton),elementList.get(currentIDBoton).toString());
 
 
-        } else if (cantidadCampos == 11) {
-            t12.setVisibility(View.GONE);
-            t13.setVisibility(View.GONE);
-            t14.setVisibility(View.GONE);
-            t15.setVisibility(View.GONE);
-            t16.setVisibility(View.GONE);
-            t17.setVisibility(View.GONE);
-            t18.setVisibility(View.GONE);
-            t19.setVisibility(View.GONE);
-            t20.setVisibility(View.GONE);
-            t21.setVisibility(View.GONE);
-            t22.setVisibility(View.GONE);
-            t23.setVisibility(View.GONE);
-            t24.setVisibility(View.GONE);
-            t25.setVisibility(View.GONE);
-            t26.setVisibility(View.GONE);
-            t27.setVisibility(View.GONE);
-            t28.setVisibility(View.GONE);
-            t29.setVisibility(View.GONE);
-            t30.setVisibility(View.GONE);
+            }
+        });
 
 
-            ib12.setVisibility(View.GONE);
-            ib13.setVisibility(View.GONE);
-            ib14.setVisibility(View.GONE);
-            ib15.setVisibility(View.GONE);
-            ib16.setVisibility(View.GONE);
-            ib17.setVisibility(View.GONE);
-            ib18.setVisibility(View.GONE);
-            ib19.setVisibility(View.GONE);
-            ib20.setVisibility(View.GONE);
-            ib21.setVisibility(View.GONE);
-            ib22.setVisibility(View.GONE);
-            ib23.setVisibility(View.GONE);
-            ib24.setVisibility(View.GONE);
-            ib25.setVisibility(View.GONE);
-            ib26.setVisibility(View.GONE);
-            ib27.setVisibility(View.GONE);
-            ib28.setVisibility(View.GONE);
-            ib29.setVisibility(View.GONE);
-            ib30.setVisibility(View.GONE);
-        }
-        else if (cantidadCampos == 24)  {
-            t25.setVisibility(View.GONE);
-            t26.setVisibility(View.GONE);
-            t27.setVisibility(View.GONE);
-            t28.setVisibility(View.GONE);
-            t29.setVisibility(View.GONE);
-            t30.setVisibility(View.GONE);
+        // Crear el segundo ImageButton
+        ImageButton imageButton2 = new ImageButton(this);
+        imageButton2.setLayoutParams(buttonParams);
+        imageButton2.setBackgroundResource(R.drawable.boton); // Establecer el fondo
+        imageButton2.setImageResource(R.drawable.ic_launcher_foreground); // Imagen del botón
+        imageButton2.setScaleType(ImageButton.ScaleType.CENTER_INSIDE); // Escalado de la imagen
+
+        // Generar ID único para el segundo botón
+        imageButton2.setId(View.generateViewId());
+
+        // Añadir el segundo botón a la lista
+        imageButtonList.add(imageButton2);
+
+        // Listener para el segundo botón
+        imageButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Usar currentIDBoton + 1 para el segundo botón
+                //Toast.makeText(Productos.this, "ID " + (currentIDBoton + 1) + ": " + elementList.get(currentIDBoton + 1).toString(), Toast.LENGTH_SHORT).show();
+
+                //whatsapp(elementList.get(currentIDBoton+1 ).toString());
+                vistaindividual=true;
+                vistaindividual(elementList.get(currentIDBoton).toString());
+                imagen(imageButtonList.get(currentIDBoton),elementList.get(currentIDBoton).toString());
 
 
-            ib25.setVisibility(View.GONE);
-            ib26.setVisibility(View.GONE);
-            ib27.setVisibility(View.GONE);
-            ib28.setVisibility(View.GONE);
-            ib29.setVisibility(View.GONE);
-            ib30.setVisibility(View.GONE);
-        }
-        else if (cantidadCampos == 13) {
+            }
+        });
 
-            ib14.setVisibility(View.GONE);
-            ib15.setVisibility(View.GONE);
-            ib16.setVisibility(View.GONE);
-            ib17.setVisibility(View.GONE);
-            ib18.setVisibility(View.GONE);
-            ib19.setVisibility(View.GONE);
-            ib20.setVisibility(View.GONE);
-            ib21.setVisibility(View.GONE);
-            ib22.setVisibility(View.GONE);
-            ib23.setVisibility(View.GONE);
-            ib24.setVisibility(View.GONE);
-            ib25.setVisibility(View.GONE);
-            ib26.setVisibility(View.GONE);
-            ib27.setVisibility(View.GONE);
-            ib28.setVisibility(View.GONE);
-            ib29.setVisibility(View.GONE);
-            ib30.setVisibility(View.GONE);
+        // Añadir los ImageButton al LinearLayout horizontal
+        horizontalLayout.addView(imageButton1);
+        horizontalLayout.addView(imageButton2);
 
-            t14.setVisibility(View.GONE);
-            t15.setVisibility(View.GONE);
-            t16.setVisibility(View.GONE);
-            t17.setVisibility(View.GONE);
-            t18.setVisibility(View.GONE);
-            t19.setVisibility(View.GONE);
-            t20.setVisibility(View.GONE);
-            t21.setVisibility(View.GONE);
-            t22.setVisibility(View.GONE);
-            t23.setVisibility(View.GONE);
-            t24.setVisibility(View.GONE);
-            t25.setVisibility(View.GONE);
-            t26.setVisibility(View.GONE);
-            t27.setVisibility(View.GONE);
-            t28.setVisibility(View.GONE);
-            t29.setVisibility(View.GONE);
-            t30.setVisibility(View.GONE);
+
+
+
+        return horizontalLayout; // Devolver el layout creado
+    }
+    private LinearLayout createButtonLayout() {
+        // Crear un nuevo LinearLayout horizontal programáticamente
+        LinearLayout horizontalLayout = new LinearLayout(this);
+        horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+        horizontalLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        // Parámetros de diseño comunes para los ImageButton y TextView
+        LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(0, dpToPx(180));
+        buttonParams.weight = 1;
+        buttonParams.setMargins(20, 20, 20, 20); // Margen de 20dp alrededor
+
+        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        textParams.setMargins(20, 0, 20, 20); // Margen para el TextView
+
+        // Guardar la posición de IDBoton para los ImageButtons de este layout
+        final int currentIDBoton = IDBoton; // Almacenar el valor actual de IDBoton
+        IDBoton += 2; // Incrementar el IDBoton para el próximo set de botones
+
+        // Crear el primer conjunto de ImageButton y TextView
+        LinearLayout verticalLayout1 = new LinearLayout(this);
+        verticalLayout1.setOrientation(LinearLayout.VERTICAL);
+        verticalLayout1.setLayoutParams(buttonParams);
+
+        // Crear el primer ImageButton
+        ImageButton imageButton1 = new ImageButton(this);
+        imageButton1.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dpToPx(180)));
+        imageButton1.setBackgroundResource(R.drawable.boton); // Establecer el fondo
+        imageButton1.setImageResource(R.drawable.ic_launcher_foreground); // Imagen del botón
+        imageButton1.setScaleType(ImageButton.ScaleType.CENTER_INSIDE); // Escalado de la imagen
+
+        // Generar ID único para el botón
+        imageButton1.setId(View.generateViewId());
+
+        // Añadir el botón a la lista
+        imageButtonList.add(imageButton1);
+
+        // Listener para el primer botón
+        imageButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vistaindividual = true;
+                vistaindividual(elementList.get(currentIDBoton).toString());
+                imagen(imageButtonList.get(currentIDBoton), elementList.get(currentIDBoton).toString());
+            }
+        });
+
+        // Crear el TextView para el primer ImageButton
+        TextView textView1 = new TextView(this);
+        textView1.setLayoutParams(textParams);
+        textView1.setText("Texto 1"); // Establece el texto que desees
+
+        // Añadir ImageButton y TextView al LinearLayout vertical
+        verticalLayout1.addView(imageButton1);
+        verticalLayout1.addView(textView1);
+
+        // Crear el segundo conjunto de ImageButton y TextView
+        LinearLayout verticalLayout2 = new LinearLayout(this);
+        verticalLayout2.setOrientation(LinearLayout.VERTICAL);
+        verticalLayout2.setLayoutParams(buttonParams);
+
+        // Crear el segundo ImageButton
+        ImageButton imageButton2 = new ImageButton(this);
+        imageButton2.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dpToPx(180)));
+        imageButton2.setBackgroundResource(R.drawable.boton); // Establecer el fondo
+        imageButton2.setImageResource(R.drawable.ic_launcher_foreground); // Imagen del botón
+        imageButton2.setScaleType(ImageButton.ScaleType.CENTER_INSIDE); // Escalado de la imagen
+
+        // Generar ID único para el segundo botón
+        imageButton2.setId(View.generateViewId());
+
+        // Añadir el segundo botón a la lista
+        imageButtonList.add(imageButton2);
+
+        // Listener para el segundo botón
+        imageButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vistaindividual = true;
+                vistaindividual(elementList.get(currentIDBoton + 1).toString());
+                imagen(imageButtonList.get(currentIDBoton + 1), elementList.get(currentIDBoton + 1).toString());
+            }
+        });
+
+        // Crear el TextView para el segundo ImageButton
+        TextView textView2 = new TextView(this);
+        textView2.setLayoutParams(textParams);
+        textView2.setText("Texto 2"); // Establece el texto que desees
+
+        // Añadir ImageButton y TextView al LinearLayout vertical
+        verticalLayout2.addView(imageButton2);
+        verticalLayout2.addView(textView2);
+
+        // Añadir los LinearLayouts verticales al LinearLayout horizontal
+        horizontalLayout.addView(verticalLayout1);
+        horizontalLayout.addView(verticalLayout2);
+
+        return horizontalLayout; // Devolver el layout creado
+    }
+
+
+    public void imagen (ImageView img, String url){
+        //funciono imagen
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference st = storage.getReferenceFromUrl("gs://reset-f2675.appspot.com/RESET/"+CATEGORIA).child(url+".png");
+
+        try{
+            final File file=File.createTempFile("image","png");
+            st.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+                    Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 200, 200, false);
+                    img.setImageBitmap(scaledBitmap);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    //Toast.makeText(Productos.this, "no funciona imagen", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }catch (IOException e)
+        {
+            e.printStackTrace();
         }
     }
+
     // Método para convertir dp a píxeles
     public int dpToPx(int dp) {
         float density = getResources().getDisplayMetrics().density;
@@ -385,288 +467,168 @@ public class Productos extends AppCompatActivity {
     }
 
 
-    public void AgregarBotones () {
-        LinearLayout parentLinearLayout = findViewById(R.id.parentLinearLayout);
 
-        // Crear un nuevo LinearLayout horizontal
-        LinearLayout newHorizontalLayout = new LinearLayout(this);
-        newHorizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
-
-        // Definir los parámetros de layout para el nuevo LinearLayout
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        newHorizontalLayout.setLayoutParams(layoutParams);
-
-        // Crear TextViews o cualquier otro elemento que quieras agregar dentro del LinearLayout horizontal
-        TextView textView1 = new TextView(this);
-        textView1.setText("Elemento 1");
-        textView1.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        ));
-
-        TextView textView2 = new TextView(this);
-        textView2.setText("Elemento 2");
-        textView2.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        ));
-
-        // Agregar los elementos al LinearLayout horizontal
-        newHorizontalLayout.addView(textView1);
-        newHorizontalLayout.addView(textView2);
-
-        // Finalmente, agregar el LinearLayout horizontal al final del LinearLayout principal
-        parentLinearLayout.addView(newHorizontalLayout);
-    }
 
 
     public void back (View view){
-        Intent intent = new Intent(Productos.this, MainActivity.class);
+        if(vistaindividual==true){
+            recreate();
+        }
+        else{
+            Intent intent = new Intent(Productos.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        // Iniciar la segunda actividad
-        startActivity(intent);
+            // Iniciar la segunda actividad
+            startActivity(intent);
+        }
     }
-
     public void FetchData(){
         // Obtener el intent que inició esta actividad
-        Intent intent = getIntent();
-        CATEGORIA = intent.getStringExtra("CATEGORIA");
-        //Toast.makeText(Productos.this, CATEGORIA, Toast.LENGTH_LONG).show();
         DocumentReference mDocRef = FirebaseFirestore.getInstance().document("RESET/"+CATEGORIA);
-
         //Toast.makeText(Productos.this, "no funciona boton", Toast.LENGTH_SHORT).show();
         mDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 //Toast.makeText(Productos.this, "solo funciona boton", Toast.LENGTH_SHORT).show();
-
+                elementList.clear();
                 if(documentSnapshot.exists())
                 {
-                    /*for (int i = 1; i <= 10; i++) {
-                        String s = documentSnapshot.getString(String.valueOf(String.valueOf(i)));
-                        "t" + String.valueOf(i) = setText(s);
-                    }*/
-                    //InspiringQuote myQuote = documentSnapshot.toObject(InspiringQuote.class);
-                    t1.setText(documentSnapshot.getString("1"));
-                    t2.setText(documentSnapshot.getString("2"));
-                    t3.setText(documentSnapshot.getString("3"));
-                    t4.setText(documentSnapshot.getString("4"));
-                    t5.setText(documentSnapshot.getString("5"));
-                    t6.setText(documentSnapshot.getString("6"));
-                    t7.setText(documentSnapshot.getString("7"));
-                    t8.setText(documentSnapshot.getString("8"));
-                    t9.setText(documentSnapshot.getString("9"));
-                    t10.setText(documentSnapshot.getString("10"));
-                    t11.setText(documentSnapshot.getString("11"));
-                    t12.setText(documentSnapshot.getString("12"));
-                    t13.setText(documentSnapshot.getString("13"));
-                    t14.setText(documentSnapshot.getString("14"));
-                    t15.setText(documentSnapshot.getString("15"));
-                    t16.setText(documentSnapshot.getString("16"));
-                    t17.setText(documentSnapshot.getString("17"));
-                    t18.setText(documentSnapshot.getString("18"));
-                    t19.setText(documentSnapshot.getString("19"));
-                    t20.setText(documentSnapshot.getString("20"));
-                    t21.setText(documentSnapshot.getString("21"));
-                    t22.setText(documentSnapshot.getString("22"));
-                    t23.setText(documentSnapshot.getString("23"));
-                    t24.setText(documentSnapshot.getString("24"));
-                    t25.setText(documentSnapshot.getString("25"));
-                    t26.setText(documentSnapshot.getString("26"));
-                    t27.setText(documentSnapshot.getString("27"));
-                    t28.setText(documentSnapshot.getString("28"));
-                    t29.setText(documentSnapshot.getString("29"));
-                    t30.setText(documentSnapshot.getString("30"));
-
-
-                    s1 = documentSnapshot.getString("1");
-                    s2 = documentSnapshot.getString("2");
-                    s3 = documentSnapshot.getString("3");
-                    s4 = documentSnapshot.getString("4");
-                    s5 = documentSnapshot.getString("5");
-                    s6 = documentSnapshot.getString("6");
-                    s7 = documentSnapshot.getString("7");
-                    s8 = documentSnapshot.getString("8");
-                    s9 = documentSnapshot.getString("9");
-                    s10 = documentSnapshot.getString("10");
-                    s11 = documentSnapshot.getString("11");
-                    s12 = documentSnapshot.getString("12");
-                    s13 = documentSnapshot.getString("13");
-                    s14 = documentSnapshot.getString("14");
-                    s15 = documentSnapshot.getString("15");
-                    s16 = documentSnapshot.getString("16");
-                    s17 = documentSnapshot.getString("17");
-                    s18 = documentSnapshot.getString("18");
-                    s19 = documentSnapshot.getString("19");
-                    s20 = documentSnapshot.getString("20");
-                    s21 = documentSnapshot.getString("21");
-                    s22 = documentSnapshot.getString("22");
-                    s23 = documentSnapshot.getString("23");
-                    s24 = documentSnapshot.getString("24");
-                    s25 = documentSnapshot.getString("25");
-                    s26 = documentSnapshot.getString("26");
-                    s27 = documentSnapshot.getString("27");
-                    s28 = documentSnapshot.getString("28");
-                    s29 = documentSnapshot.getString("29");
-                    s30 = documentSnapshot.getString("30");
-
-
-
-
                     // Obtener los datos del documento como un mapa
                     Map<String, Object> data = documentSnapshot.getData();
 
                     // Agregar los valores a la lista
                     if (data != null) {
-                        elementList.addAll(data.values());
+                        for(int i = 1; i <= cantidadCampos; i++){
+                            elementList.add(documentSnapshot.getString(String.valueOf(i)));
+                        }
                         //Toast.makeText(Productos.this, "lista correcta"+elementList.toString(), Toast.LENGTH_LONG).show();
                     }
-
-                    tvmenu.setText(CATEGORIA);
-
-
-
-
-
-
-                    //mQuoteTextView.setText(s1 + " - "+ s2 + " - "+ s3 );
-                    //Toast.makeText(Productos.this, "no hay texto", Toast.LENGTH_SHORT).show();
-
                 }
                 else
                 {
-                    //Toast.makeText(Productos.this, "Quote not found", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-    public void b1 (View view){
-        whatsapp(s1);
-    }
-    public void b2 (View view){
-        whatsapp(s2);
-    }
-    public void b3 (View view){
-        whatsapp(s3);
-    }
-    public void b4 (View view){
-        whatsapp(s4);
-    }
-    public void b5 (View view){
-        whatsapp(s5);
-    }
-    public void b6 (View view){
-        whatsapp(s6);
-    }
-    public void b7 (View view){
-        whatsapp(s7);
-    }
-    public void b8 (View view){
-        whatsapp(s8);
-    }
-    public void b9 (View view){
-        whatsapp(s9);
-        }
-    public void b10 (View view){
-        whatsapp(s10);
-    }
-    public void b11 (View view){
-        whatsapp(s11);
-    }
-    public void b12 (View view) {
-        whatsapp(s12);
-    }
-    public void b13 (View view) {
-        whatsapp(s13);
-    }
-    public void b14 (View view) {
-        whatsapp(s14);
-    }
-    public void b15 (View view) {
-        whatsapp(s15);}
-    public void b16 (View view){
-        whatsapp(s16);
-    }
-    public void b17 (View view){
-        whatsapp(s17);
-    }
-    public void b18 (View view){
-        whatsapp(s18);
-    }
-    public void b19 (View view){
-        whatsapp(s19);
-    }
-    public void b20 (View view){
-        whatsapp(s20);
-    }
-    public void b21 (View view){
-        whatsapp(s21);
-    }
-    public void b22 (View view){
-        whatsapp(s22);
-    }
-    public void b23 (View view){
-        whatsapp(s23);
-    }
-    public void b24 (View view){
-        whatsapp(s24);
-        }
-    public void b25 (View view){
-        whatsapp(s25);
-    }
-    public void b26 (View view){
-        whatsapp(s26);
-    }
-    public void b27 (View view){
-        whatsapp(s27);
-    }
-    public void b28 (View view){
-        whatsapp(s28);}
-    public void b29 (View view){
-        whatsapp(s29);
-    }
-    public void b30 (View view){
-        whatsapp(s30);
-    }
 
 
-    public void whatsapp (String producto){
-        DocumentReference mDocRef = FirebaseFirestore.getInstance().document("RESET/PRIVADO");
 
 
-        mDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+    public void whatsappno (String producto){
+
+        //DocumentReference mDocRefws = FirebaseFirestore.getInstance().document("RESET/PRIVADO");
+        mDocRefws.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 //Toast.makeText(MainActivity.this, "solo funciona boton", Toast.LENGTH_SHORT).show();
 
                 if(documentSnapshot.exists())
                 {
-
-
                     Numero = documentSnapshot.getString("1");
                     mensaje = documentSnapshot.getString("2");
-
-
-
-
 
                 }
                 else
                 {
-                    //Toast.makeText(MainActivity.this, "Quote not found", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
-
+        Toast.makeText(Productos.this, "funciona whatsapp", Toast.LENGTH_SHORT).show();
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_VIEW);
+        if (Numero==null){
+            //Thread.sleep(100);
+            //whatsapp(producto);
+            return;
+        }
 
-        String url ="whatsapp://send?phone="+Numero+"&text="+mensaje+producto;
+        //codigo para whatsapp
+        whatsappenviado = true;
+        String url  ="whatsapp://send?phone="+Numero+"&text="+mensaje+producto+" de la categoria "+CATEGORIA;
         sendIntent.setData(android.net.Uri.parse(url));
         startActivity(sendIntent);
+        vistaindividual=true;
+        vistaindividual(producto);
+
+    }
+    public void whatsapp(String producto) {
+
+        mDocRefws.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    Numero = documentSnapshot.getString("1");
+                    mensaje = documentSnapshot.getString("2");
+
+                    // Asegúrate de que Numero no sea null antes de continuar
+                    if (Numero != null) {
+                        Toast.makeText(Productos.this, "funciona whatsapp", Toast.LENGTH_SHORT).show();
+
+                        // Código para enviar mensaje por WhatsApp
+                        Intent sendIntent = new Intent();
+                        sendIntent.setAction(Intent.ACTION_VIEW);
+                        String url = "whatsapp://send?phone=" + Numero + "&text=" + mensaje + producto + " de la categoria " + CATEGORIA;
+                        sendIntent.setData(android.net.Uri.parse(url));
+                        startActivity(sendIntent);
+
+                        whatsappenviado = true;
+                        vistaindividual = true;
+                        vistaindividual(producto);  // Aquí llamas a tu función personalizada
+                    } else {
+                        // Si Numero es null, puedes manejarlo aquí
+                        Toast.makeText(Productos.this, "No se pudo obtener el número", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    // Si el documento no existe, maneja el caso aquí
+                    Toast.makeText(Productos.this, "Documento no existe", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void vistaindividual(String producto){
+        Toast.makeText(Productos.this, "funciona  vistaindividual", Toast.LENGTH_SHORT).show();
+        if(vistaindividual==true){
+            llvistaindividual.setVisibility(View.VISIBLE);
+            scroll.setVisibility(View.GONE);
+            Toast.makeText(Productos.this, "funciona  vistaindividual = true", Toast.LENGTH_SHORT).show();
+            nombreproducto.setText(producto);
+            imagen(imagenProducto,producto);
+            cantidadproducto.setText(String.valueOf(1));
+            preciototalproducto.setText("$"+String.valueOf(100));
+
+
+            btnup.setOnClickListener(v -> {
+                cantidad++;
+                cantidadproducto.setText(String.valueOf(cantidad));
+                preciototalproducto.setText("$"+String.valueOf(cantidad*100));
+
+            });
+            btndowm.setOnClickListener(v -> {
+                if(cantidad==0){
+                    Toast.makeText(Productos.this, "Valor invalido", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                cantidad--;
+                cantidadproducto.setText(String.valueOf(cantidad));
+                preciototalproducto.setText("$"+String.valueOf(cantidad*100));
+            });
+            butonwhatsapp.setOnClickListener(v -> {
+
+                whatsapp(producto);
+
+            });
+
+
+        }
+        else{
+            llvistaindividual.setVisibility(View.GONE);
+            scroll.setVisibility(View.VISIBLE);
+        }
+
+
 
     }
     public void CountData()

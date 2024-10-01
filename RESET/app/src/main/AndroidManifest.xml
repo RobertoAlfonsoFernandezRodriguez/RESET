@@ -10,11 +10,12 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:forceDarkAllowed="false"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_reset"
+        android:icon="@mipmap/icono_reset"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_reset_round"
+        android:roundIcon="@mipmap/icono_reset_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RESET"
+        android:name=".ApplicationClass"
         tools:targetApi="31">
         <activity
             android:name=".CRUD"

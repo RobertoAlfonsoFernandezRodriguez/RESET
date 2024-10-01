@@ -10,18 +10,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="103dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/imageButton2"
-                android:layout_width="178dp"
-                android:layout_height="78dp"
-                android:layout_margin="5dp"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:background="@drawable/arrow"
                 android:onClick="back"
@@ -29,17 +31,14 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginRight="5dp"
-                >
+                android:layout_height="80dp"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="280dp"
-                    android:layout_height="88dp"
-                    android:layout_margin="5dp"
-                    android:layout_marginHorizontal="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@drawable/boton"
                     android:textStyle="bold" />
@@ -49,1008 +48,107 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textSize="40dp"
+                    android:text=""
                     android:textColor="#000000"
-                    android:text="" />
+                    android:textSize="25sp" />
             </FrameLayout>
 
 
         </LinearLayout>
-        <ScrollView
+
+        <LinearLayout
+            android:id="@+id/linearLayoutvistaindividual"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/scroll">
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imagenproducto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                app:srcCompat="@drawable/reset"
+
+                />
+
+            <TextView
+                android:id="@+id/nombreproducto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="nombre"
+                android:textSize="34sp" />
+
+            <TextView
+                android:id="@+id/descripcionproducto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="descripcion"
+                android:textSize="34sp" />
+
+            <TextView
+                android:id="@+id/preciotototalproducto"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+
+                android:text="preciototal"
+                android:textSize="34sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/parentLinearLayout">
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/cantidadproducto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="cantidad"
+                    android:textSize="34sp" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_width="35dp"
+                    android:layout_height="wrap_content"
 
-                    <FrameLayout
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/btnup"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
+                        android:layout_height="45dp"
+                        android:scaleType="center"
+                        app:srcCompat="@android:drawable/arrow_up_float" />
 
-                        <ImageButton
-                            android:id="@+id/ibtn1"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b1"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                    <FrameLayout
+                    <ImageButton
+                        android:id="@+id/btndowm"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/ibtn2"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b2"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/ibtn3"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b3"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/ibtn4"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b5"
-
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/ibtn5"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/ibtn6"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b6"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/ibtn7"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b7"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv7"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/ibtn8"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b8"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv8"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/ibtn9"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b9"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv9"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/itbn10"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b10"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv10"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/ibtn11"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b11"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv11"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/ibtn12"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_gravity="center"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b12"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/ibtn13"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b13"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv13"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/ibtn14"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b14"
-
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/ibtn15"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            app:srcCompat="@drawable/ic_launcher_foreground"
-                            android:onClick="b15"/>
-
-                        <TextView
-                            android:id="@+id/tv15"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/ibtn16"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b16"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv16"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/ibtn17"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b17"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv17"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/ibtn18"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b18"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv18"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/ibtn19"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b19"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv19"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1">
-
-                        <ImageButton
-                            android:id="@+id/itbn20"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/boton"
-                            android:onClick="b20"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv20"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_margin="10dp">
-
-                        <ImageButton
-                            android:id="@+id/ibtn21"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/boton"
-                            android:onClick="b21"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv21"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_margin="10dp">
-
-                        <ImageButton
-                            android:id="@+id/ibtn22"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_gravity="center"
-                            android:layout_weight="1"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/boton"
-                            android:onClick="b22"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv22"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_margin="10dp">
-
-                        <ImageButton
-                            android:id="@+id/ibtn23"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_weight="1"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/boton"
-                            android:onClick="b23"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv23"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_margin="10dp">
-
-                        <ImageButton
-                            android:id="@+id/ibtn24"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_weight="1"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/boton"
-                            android:onClick="b24"
-
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv24"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_margin="10dp">
-
-                        <ImageButton
-                            android:id="@+id/ibtn25"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_weight="1"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/boton"
-                            app:srcCompat="@drawable/ic_launcher_foreground"
-                            android:onClick="b25"/>
-
-                        <TextView
-                            android:id="@+id/tv25"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_margin="10dp">
-
-                        <ImageButton
-                            android:id="@+id/ibtn26"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_weight="1"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/boton"
-                            android:onClick="b26"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv26"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_margin="10dp">
-
-                        <ImageButton
-                            android:id="@+id/ibtn27"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_weight="1"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/boton"
-                            android:onClick="b27"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv27"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_margin="10dp">
-
-                        <ImageButton
-                            android:id="@+id/ibtn28"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_weight="1"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/boton"
-                            android:onClick="b28"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv28"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_margin="10dp">
-
-                        <ImageButton
-                            android:id="@+id/ibtn29"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_weight="1"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/boton"
-                            android:onClick="b29"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv29"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:layout_margin="10dp">
-
-                        <ImageButton
-                            android:id="@+id/itbn30"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_weight="1"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/boton"
-                            android:onClick="b30"
-                            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-                        <TextView
-                            android:id="@+id/tv30"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="50dp"
-                            android:layout_weight="1"
-                            android:text=""
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-                    </FrameLayout>
-
+                        android:layout_height="45dp"
+                        app:srcCompat="@android:drawable/arrow_down_float" />
                 </LinearLayout>
 
             </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/botonwhatsapp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@android:drawable/stat_notify_voicemail" />
+
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/containerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
         </ScrollView>
 
     </LinearLayout>

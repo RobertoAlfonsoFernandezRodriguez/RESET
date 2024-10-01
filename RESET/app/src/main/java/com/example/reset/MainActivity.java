@@ -3,12 +3,15 @@ package com.example.reset;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +24,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -36,39 +40,31 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import android.widget.LinearLayout.LayoutParams;
+
 public class MainActivity extends AppCompatActivity {
-    public static final String AUTHOR_KEY = "author";
-    public static final String QUOTE_KEY = "quote";
-    FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageReference1 = storage.getReferenceFromUrl("gs://reset-f2675.appspot.com/RESET/CATEGORIAS").child("TPV.png");
-    FirebaseStorage storage2 = FirebaseStorage.getInstance();
-    StorageReference storageReference2 = storage2.getReferenceFromUrl("gs://reset-f2675.appspot.com/RESET/CATEGORIAS").child("CCTV.png");
-    FirebaseStorage storage3 = FirebaseStorage.getInstance();
-    StorageReference storageReference3 = storage3.getReferenceFromUrl("gs://reset-f2675.appspot.com/RESET/CATEGORIAS").child("CONSULTORÍA.png");
-    FirebaseStorage storage4 = FirebaseStorage.getInstance();
-    StorageReference storageReference4 = storage4.getReferenceFromUrl("gs://reset-f2675.appspot.com/RESET/CATEGORIAS").child("SERVICIOS.png");
-    FirebaseStorage storage5 = FirebaseStorage.getInstance();
-    StorageReference storageReference5 = storage5.getReferenceFromUrl("gs://reset-f2675.appspot.com/RESET/CATEGORIAS").child("GARANTIAS.png");
-    FirebaseStorage storage6 = FirebaseStorage.getInstance();
-    StorageReference storageReference6 = storage6.getReferenceFromUrl("gs://reset-f2675.appspot.com/RESET/CATEGORIAS").child("REDES.png");
-    private DocumentReference mDocRef = FirebaseFirestore.getInstance().document("RESET/CATEGORIAS");
-    TextView mQuoteTextView;
-    TextView t1;
-    TextView t2;
-    TextView t3;
-    TextView t4;
-    TextView t5;
-    TextView t6;
-    TextView t7;
-    TextView t8;
-    TextView t9;
-    TextView t10;
+    private ArrayList<ImageButton> imageButtonList;
+    private int contadorclics=0;
+    private int vecescontadass=0;
+    int cantidadCampos;
+    int cantidadCamposCat;
+    int IDBoton=0;
+    boolean par;
+    ArrayList<Object> elementList = new ArrayList<>();
 
-    ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9, image10;
 
+    ImageView image1, image2, image3, image4;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,72 +75,370 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        //nombre imagen de reset
         ImageView imageView = findViewById(R.id.imageView);
 
-        // Configura el evento onClick
+        // Configura el evento onClick de imagen de reset
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Acción a realizar cuando se hace clic en la imagen
-                Intent intent = new Intent(MainActivity.this, Login.class);
-                startActivity(intent);
+                if (contadorclics ==5)
+                {
+                    // abrir otra activity
+                    Intent intent = new Intent(MainActivity.this, Login.class);
+                    startActivity(intent);
+                }
+                contadorclics++;
+
             }
         });
+        //modo oscuro desactivado
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-
-        //mQuoteTextView = findViewById(R.id.textView);
-        t1 = findViewById(R.id.tv1);
-        t2 = findViewById(R.id.tv2);
-        t3 = findViewById(R.id.tv3);
-        t4 = findViewById(R.id.tv4);
-
-
-        ImageButton boton1 = findViewById(R.id.ibtn1);
-        ImageButton boton2 = findViewById(R.id.ibtn2);
-        ImageButton boton3 = findViewById(R.id.ibtn3);
-        ImageButton boton4 = findViewById(R.id.ibtn4);
 
         image1= findViewById(R.id.ibtn1);
         image2= findViewById(R.id.ibtn2);
         image3= findViewById(R.id.ibtn3);
         image4= findViewById(R.id.ibtn4);
 
-     FetchData();
-     imagen(image1,storageReference1);
-     imagen(image2,storageReference2);
-     imagen(image3,storageReference3);
-     imagen(image4,storageReference4);
+        //FetchData();
+        imagen(image1,"TPV");
+        imagen(image2,"CCTV");
 
 
+        // Obtener el LinearLayout dentro del ScrollView
 
+
+        //LinearLayout linearLayoutParent = findViewById(R.id.containerLayout);
+        //botones();
         //agregarBotones();
-    }
-    public void agregarBotones(){
-        // Acceder al LinearLayout existente en el archivo XML
-        //LinearLayout miLayout = findViewById(R.id.miLinearLayout);
+        /*for (int i = 1; i <= 6; i++) {
+            createComplexLayout(linearLayoutParent, i);
+        }*/
 
-        // Crear un botón programáticamente
-        Button boton = new Button(this);
-        boton.setText("Nuevo Botón");
+        // Inicializar la lista de ImageButtons
+        imageButtonList = new ArrayList<>();
 
-        // Definir el tamaño del botón
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        boton.setLayoutParams(params);
+        // Obtener el contenedor (LinearLayout) dentro del ScrollView
+        LinearLayout containerLayout = findViewById(R.id.containerLayout);
 
-        // Definir el comportamiento del botón al hacer clic
-        boton.setOnClickListener(new View.OnClickListener() {
+        // Número de layouts que deseas crear
+
+        //CountData();
+
+
+        do {
+            try {
+                CountData();
+                Toast.makeText(MainActivity.this, "Exito"+String.valueOf(cantidadCampos), Toast.LENGTH_SHORT).show();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Espera antes de volver a intentar
+                try {
+                    Thread.sleep(10); // 1 segundo de espera
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } while (cantidadCampos > 0 || vecescontadass>100); // Repite mientras no haya éxito
+
+        //Toast.makeText(MainActivity.this, "Exito"+String.valueOf(cantidadCampos), Toast.LENGTH_SHORT).show();
+        FetchData();
+
+
+
+
+
+
+
+        DocumentReference mDocRefUpdate = FirebaseFirestore.getInstance().document("RESET/CATEGORIAS");
+
+        // Intentas obtener los datos de Firestore de manera asíncrona
+        mDocRefUpdate.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "¡Botón programático presionado!", Toast.LENGTH_SHORT).show();
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                // Aquí ya tienes el documento obtenido correctamente
+                if (documentSnapshot.exists()) {
+                    // Obtén los datos del documento, por ejemplo:
+                    String categoria = documentSnapshot.getString("1");
+                    //Toast.makeText(MainActivity.this, "El valor de countdata es"+categoria, Toast.LENGTH_SHORT).show();
+                    CountData();
+                    //Toast.makeText(MainActivity.this, "El valor de countdata es" + String.valueOf(cantidadCampos), Toast.LENGTH_SHORT).show();
+                    if (cantidadCampos > 0){
+                        FetchData();
+
+
+                        if (cantidadCampos % 2 == 0) {
+                            for (int i = 0; i < ((cantidadCampos/2)); i++) {
+
+                                LinearLayout horizontalLayout = createButtonLayout(); // Crear el layout
+                                containerLayout.addView(horizontalLayout); // Añadir al contenedor
+                                par=true;
+                            }
+
+                        } else {
+                            for (int i = 0; i < ((cantidadCampos/2)+1); i++) {
+                                //IDBoton=1;
+                                LinearLayout horizontalLayout = createButtonLayout(); // Crear el layout
+                                containerLayout.addView(horizontalLayout); // Añadir al contenedor
+                                par=false;
+                            }
+
+
+                        }
+
+                        for (int i = 0; i < cantidadCampos; i++) {
+                            imagen( imageButtonList.get(i),elementList.get(i).toString());
+                        }
+                        if (par== false){
+                            imageButtonList.get(imageButtonList.size()-1).setVisibility(View.INVISIBLE);
+                        }
+                        //imagen( imageButtonList.get(1),storageReference1);
+                        // la altura de imageButton1
+                    }
+
+
+                    // Ahora puedes usar el dato "categoria"
+                    System.out.println("Categoría obtenida: " + categoria);
+
+                    // O llamar a una función que maneje los datos
+                    // ...
+
+
+                } else {
+                    // El documento no existe
+                    System.out.println("No se encontró el documento");
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // Manejar el error si ocurre un fallo en la lectura
+                System.out.println("Error al obtener documento: " + e.getMessage());
             }
         });
 
-        // Agregar el botón al LinearLayout
-        //miLayout.addView(boton);
+        //botones compartir maps, telefono y facebook
+        // Botón de llamada
+        Button btnCall = findViewById(R.id.btn_call);
+        btnCall.setOnClickListener(v -> {
+            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+            callIntent.setData(Uri.parse("tel:123456789")); // Cambia el número
+            startActivity(callIntent);
+        });
+
+        // Botón de localización
+        Button btnMap = findViewById(R.id.btn_map);
+        btnMap.setOnClickListener(v -> {
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW);
+            Uri gmmIntentUri = Uri.parse("geo:20.573714,-100.404709?q=RESET+MEXICO");
+            mapIntent.setData(gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            startActivity(mapIntent);
+        });
+
+        // Botón de Facebook
+        Button btnFacebook = findViewById(R.id.btn_facebook);
+        btnFacebook.setOnClickListener(v -> {
+            Intent facebookIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com"));
+            startActivity(facebookIntent);
+        });
+
+        // Botón de compartir
+        Button btnShare = findViewById(R.id.btn_share);
+        btnShare.setOnClickListener(v -> {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "¡Descarga nuestra app en Google Play! https://play.google.com/store/apps/details?id=com.tuapp.ejemplo");
+            startActivity(Intent.createChooser(shareIntent, "Compartir vía"));
+        });
+        // Botón de paginaweb
+        Button btnpagweb = findViewById(R.id.btn_paginareset);
+        btnpagweb.setOnClickListener(v -> {
+            Intent pagwebintent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.resetmex.com/"));
+            startActivity(pagwebintent);
+        });
+
+
+
+    }
+
+    // Método para crear un LinearLayout con dos ImageButtons
+    private LinearLayout createButtonLayout() {
+        // Crear un nuevo LinearLayout programáticamente
+        LinearLayout horizontalLayout = new LinearLayout(this);
+        horizontalLayout.setOrientation(LinearLayout.HORIZONTAL);
+        horizontalLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+
+        // Parámetros de diseño comunes para los ImageButton
+        LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(0, dpToPx(180));
+        buttonParams.weight = 1;
+        buttonParams.setMargins(20, 20, 20, 20); // Margen de 20dp alrededor
+
+        // Guardar la posición de IDBoton para los ImageButtons de este layout
+        final int currentIDBoton = IDBoton; // Almacenar el valor actual de IDBoton
+        IDBoton += 2; // Incrementar el IDBoton para el próximo set de botones
+
+        // Crear el primer ImageButton
+        ImageButton imageButton1 = new ImageButton(this);
+        imageButton1.setLayoutParams(buttonParams);
+        imageButton1.setBackgroundResource(R.drawable.boton); // Establecer el fondo
+        imageButton1.setImageResource(R.drawable.ic_launcher_foreground); // Imagen del botón
+        imageButton1.setScaleType(ImageButton.ScaleType.CENTER_INSIDE); // Escalado de la imagen
+
+        // Generar ID único para el botón
+        imageButton1.setId(View.generateViewId());
+
+        // Añadir el botón a la lista
+        imageButtonList.add(imageButton1);
+
+        // Listener para el primer botón
+        imageButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                // Usar currentIDBoton en lugar de IDBoton
+                //Toast.makeText(MainActivity.this, "ID " + currentIDBoton + ": " + elementList.get(currentIDBoton).toString(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, Productos.class);
+
+                // Pasar datos utilizando putExtra
+                intent.putExtra("CATEGORIA", elementList.get(currentIDBoton).toString());
+
+                DocumentReference mDocRefUpdate = FirebaseFirestore.getInstance().document("RESET/"+elementList.get(currentIDBoton).toString());
+                //Toast.makeText(MainActivity.this, "Entra"+String.valueOf(cantidadCampos), Toast.LENGTH_SHORT).show();
+
+
+                mDocRefUpdate.get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if (documentSnapshot.exists()) {
+                                    // Obtener los datos del documento como un mapa
+                                    Map<String, Object> datos = documentSnapshot.getData();
+
+                                    if (datos != null) {
+                                        // Contar la cantidad de elementos (campos) en el documento
+                                        cantidadCamposCat = datos.size();
+                                        Log.d("Firestore", "Cantidad de campos: " + cantidadCampos);
+                                        //Toast.makeText(MainActivity.this,"Main"+ String.valueOf(cantidadCamposCat), Toast.LENGTH_SHORT).show();
+                                        intent.putExtra("CANTIDAD", cantidadCamposCat);
+                                        startActivity(intent);
+                                        if (cantidadCampos > 0) {
+                                            //Toast.makeText(MainActivity.this, "Funciona correctamente", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                    }
+                                } else {
+                                    Log.d("Firestore", "El documento no existe");
+                                }
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("Firestore", "Error obteniendo el documento", e);
+                            }
+                        });
+
+
+                intent.putExtra("CANTIDAD", cantidadCamposCat);
+                // Iniciar la segunda actividad
+
+            }
+        });
+
+
+        // Crear el segundo ImageButton
+        ImageButton imageButton2 = new ImageButton(this);
+        imageButton2.setLayoutParams(buttonParams);
+        imageButton2.setBackgroundResource(R.drawable.boton); // Establecer el fondo
+        imageButton2.setImageResource(R.drawable.ic_launcher_foreground); // Imagen del botón
+        imageButton2.setScaleType(ImageButton.ScaleType.CENTER_INSIDE); // Escalado de la imagen
+
+        // Generar ID único para el segundo botón
+        imageButton2.setId(View.generateViewId());
+
+        // Añadir el segundo botón a la lista
+        imageButtonList.add(imageButton2);
+
+        // Listener para el segundo botón
+        imageButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Usar currentIDBoton + 1 para el segundo botón
+                //Toast.makeText(MainActivity.this, "ID " + (currentIDBoton + 1) + ": " + elementList.get(currentIDBoton + 1).toString(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, Productos.class);
+
+                // Pasar datos utilizando putExtra
+                intent.putExtra("CATEGORIA", elementList.get(currentIDBoton + 1).toString());
+
+                DocumentReference mDocRefUpdate2 = FirebaseFirestore.getInstance().document("RESET/"+elementList.get(currentIDBoton+1).toString());
+                //Toast.makeText(MainActivity.this, "Entra"+String.valueOf(cantidadCampos), Toast.LENGTH_SHORT).show();
+
+
+                mDocRefUpdate2.get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                if (documentSnapshot.exists()) {
+                                    // Obtener los datos del documento como un mapa
+                                    Map<String, Object> datos = documentSnapshot.getData();
+
+                                    if (datos != null) {
+                                        // Contar la cantidad de elementos (campos) en el documento
+                                        cantidadCamposCat = datos.size();
+                                        Log.d("Firestore", "Cantidad de campos: " + cantidadCampos);
+                                        Toast.makeText(MainActivity.this, String.valueOf(cantidadCamposCat), Toast.LENGTH_SHORT).show();
+                                        intent.putExtra("CANTIDAD", cantidadCamposCat);
+                                        startActivity(intent);
+                                        if (cantidadCampos > 0) {
+                                            //Toast.makeText(MainActivity.this, "Funciona correctamente", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                    }
+                                } else {
+                                    Log.d("Firestore", "El documento no existe");
+                                }
+
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("Firestore", "Error obteniendo el documento", e);
+                            }
+                        });
+
+
+
+
+
+        };
+
+
+
+        });
+
+        // Añadir los ImageButton al LinearLayout horizontal
+        horizontalLayout.addView(imageButton1);
+        horizontalLayout.addView(imageButton2);
+
+
+
+
+        return horizontalLayout; // Devolver el layout creado
+    }
+
+
+
+
+
+    // Método para convertir dp a píxeles, para el tamaño de los image boton
+    public int dpToPx(int dp) {
+        float density = getResources().getDisplayMetrics().density;
+        return Math.round(dp * density);
     }
 
 
@@ -184,36 +478,12 @@ public class MainActivity extends AppCompatActivity {
         // Iniciar la segunda actividad
         startActivity(intent);
     }
-    public void b5 (View view){
-        Intent intent = new Intent(MainActivity.this, Productos.class);
 
-        // Pasar datos utilizando putExtra
-        intent.putExtra("CATEGORIA", "GARANTIAS");
 
-        // Iniciar la segunda actividad
-        startActivity(intent);
-    }
-    public void b6 (View view){
-        Intent intent = new Intent(MainActivity.this, Productos.class);
-
-        // Pasar datos utilizando putExtra
-        intent.putExtra("CATEGORIA", "REDES");
-
-        // Iniciar la segunda actividad
-        startActivity(intent);
-    }
-    public void b7 (View view){
-    }
-    public void b8 (View view){
-    }
-    public void b9 (View view){
-    }
-    public void b10 (View view){
-    //UpdateData();
-    //CountData();
-    }
-
-    public void imagen (ImageView img, StorageReference st){
+    //agregar imagenes desde firebase, deben ser .png
+    public void imagen (ImageView img, String url){
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference st = storage.getReferenceFromUrl("gs://reset-f2675.appspot.com/RESET/CATEGORIAS").child(url+".png");
 
         try{
             final File file=File.createTempFile("image","png");
@@ -236,62 +506,43 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
+    //Guardar todos los elementos en una lista tipo objeto llamada elementlist
     public void FetchData(){
-        //Toast.makeText(MainActivity.this, "no funciona boton", Toast.LENGTH_SHORT).show();
+        // Obtener el intent que inició esta actividad
+        DocumentReference mDocRef = FirebaseFirestore.getInstance().document("RESET/CATEGORIAS");
         mDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                //Toast.makeText(MainActivity.this, "solo funciona boton", Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(Productos.this, "solo funciona boton", Toast.LENGTH_SHORT).show();
+                elementList.clear();
                 if(documentSnapshot.exists())
                 {
-                    /*for (int i = 1; i <= 10; i++) {
-                        String s = documentSnapshot.getString(String.valueOf(String.valueOf(i)));
-                        "t" + String.valueOf(i) = setText(s);
-                    }*/
-                    //InspiringQuote myQuote = documentSnapshot.toObject(InspiringQuote.class);
-                    //t1.setText(documentSnapshot.getString("1"));
-                    //t2.setText(documentSnapshot.getString("2"));
-                    t3.setText(documentSnapshot.getString("3"));
-                    t4.setText(documentSnapshot.getString("4"));
+                    // Obtener los datos del documento como un mapa
+                    Map<String, Object> data = documentSnapshot.getData();
 
+                    // Agregar los valores a la lista
+                    if (data != null) {
+                        for(int i = 1; i <= cantidadCampos; i++){
+                            elementList.add(documentSnapshot.getString(String.valueOf(i)));
+                        }
 
-
-                    //mQuoteTextView.setText(s1 + " - "+ s2 + " - "+ s3 );
-                    //Toast.makeText(MainActivity.this, "no hay texto", Toast.LENGTH_SHORT).show();
-
+                    }
                 }
                 else
                 {
-                    //Toast.makeText(MainActivity.this, "Quote not found", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
-    public void UpdateData(){
-        DocumentReference mDocRefUpdate = FirebaseFirestore.getInstance().document("RESET/CATEGORIAS");
-        Map<String, Object> datatoUpdate = new HashMap<String,Object>();
-        datatoUpdate.put("7", "pokemon");
 
-        mDocRefUpdate.update(datatoUpdate)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d("Firestore", "Documento actualizado correctamente");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("Firestore", "Error actualizando el documento", e);
-                    }
-                });
 
-    }
+
+    //Cuenta cantidad de elementos en un documento y los guarda en cantidadcampos
     public void CountData()
     {
         DocumentReference mDocRefUpdate = FirebaseFirestore.getInstance().document("RESET/CATEGORIAS");
+        //Toast.makeText(MainActivity.this, "Entra"+String.valueOf(cantidadCampos), Toast.LENGTH_SHORT).show();
+
 
         mDocRefUpdate.get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -303,13 +554,18 @@ public class MainActivity extends AppCompatActivity {
 
                             if (datos != null) {
                                 // Contar la cantidad de elementos (campos) en el documento
-                                int cantidadCampos = datos.size();
+                                cantidadCampos = datos.size();
                                 Log.d("Firestore", "Cantidad de campos: " + cantidadCampos);
-                                Toast.makeText(MainActivity.this, String.valueOf(cantidadCampos), Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(MainActivity.this, String.valueOf(cantidadCampos), Toast.LENGTH_SHORT).show();
+                                if (cantidadCampos > 0) {
+                                    //Toast.makeText(MainActivity.this, "Funciona correctamente", Toast.LENGTH_SHORT).show();
+                                }
+
                             }
                         } else {
                             Log.d("Firestore", "El documento no existe");
                         }
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -319,24 +575,5 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-    /*public void saveQuote(View view) {
-        EditText quoteView = findViewById(R.id.editTextText);
-        EditText authorView = findViewById(R.id.editTextText2);
-        String quoteText = quoteView.getText().toString();
-        String authorText = authorView.getText().toString();
 
-        if (quoteText.isEmpty() || authorText.isEmpty()) {return;}
-        Map<String, Object> dataToSave = new HashMap<String,Object>();
-        dataToSave.put(QUOTE_KEY, quoteText);
-        dataToSave.put(AUTHOR_KEY, authorText);
-        Toast.makeText(MainActivity.this, "algo jala", Toast.LENGTH_SHORT).show();
-
-        mDocRef.set(dataToSave).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(MainActivity.this, "Quote saved", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }*/
-
-}
+    }
